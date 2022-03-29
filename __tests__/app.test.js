@@ -37,3 +37,27 @@ describe(`/api/topics tests`, () => {
     });
   });
 });
+describe(`/api/articles tests`, () => {
+  describe(`GET tests`, () => {
+    test(`/api/articles, returns an array of objects`, () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body;
+          articles.forEach((article) =>
+            expect(article).toEqual(
+              expect.objectContaining({
+                author: expect.any(String),
+                title: expect.any(String),
+                article_id: expect.any(Number),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+              })
+            )
+          );
+        });
+    });
+  });
+});
