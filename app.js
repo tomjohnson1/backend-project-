@@ -7,11 +7,9 @@ const {
 } = require("./errors/index");
 
 const app = express();
-app.use(express.json);
+app.use(express.json());
 //api requests
-app.get("/api/topics", () => {
-  console.log("in the app");
-});
+app.get("/api/topics", getTopics);
 
 //error handling
 app.use(handleCustomErrors);
