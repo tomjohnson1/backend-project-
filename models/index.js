@@ -12,3 +12,9 @@ exports.selectArticles = () => {
       return result.rows;
     });
 };
+exports.selectUsers = () => {
+  return db.query(`SELECT username FROM users;`).then((result) => {
+    console.log(result.rows);
+    return result.rows;
+  });
+};

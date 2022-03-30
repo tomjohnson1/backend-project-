@@ -61,3 +61,22 @@ describe(`/api/articles tests`, () => {
     });
   });
 });
+describe(`/api/users tests`, () => {
+  describe(`GET tests`, () => {
+    test(`/api/users, returns an array of objects`, () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then(({ body }) => {
+          const { users } = body;
+          users.forEach((user) =>
+            expect(user).toEqual(
+              expect.objectContaining({
+                username: expect.any(String),
+              })
+            )
+          );
+        });
+    });
+  });
+});
