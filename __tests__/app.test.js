@@ -80,3 +80,43 @@ describe(`/api/users tests`, () => {
     });
   });
 });
+describe.only(`/api/articles/:article_id tests`, () => {
+  describe(`GET tests`, () => {
+    test(`/api/articles/:article_id, returns an array with single object`, () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body }) => {
+          const { article } = body;
+          expect(article).toEqual(
+            expect.objectContaining({
+              author: expect.any(String),
+              title: expect.any(String),
+              article_id: 1,
+              topic: expect.any(String),
+              created_at: expect.any(String),
+              votes: expect.any(Number),
+            })
+          );
+        });
+    });
+  });
+  describe(`Error handling tests`, () => {
+    test(`404 - Path not found for /api/topi`, () => {
+      return request(app)
+        .get("/api/artivle/1")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Route not found");
+        });
+    });
+    test(`400 - No article with ID 666`, () => {
+      return request(app)
+        .get(`/api/articles/666`)
+        .expect(404)
+        .then(({ body }) => {
+          expect(body.msg).toBe(`No articles with ID: 666`);
+        });
+    });
+  });
+});

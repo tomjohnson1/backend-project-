@@ -1,5 +1,10 @@
 const express = require("express");
-const { getTopics, getArticles, getUsers } = require("./controllers/index");
+const {
+  getTopics,
+  getArticles,
+  getUsers,
+  getArticle,
+} = require("./controllers/index");
 const {
   handleCustomErrors,
   handlePsqlErrors,
@@ -12,6 +17,7 @@ app.use(express.json());
 app.get("/api/topics", getTopics);
 app.get("/api/articles", getArticles);
 app.get("/api/users", getUsers);
+app.get(`/api/articles/:article_id`, getArticle);
 //error handling
 app.use(handleCustomErrors);
 app.use(handlePsqlErrors);
